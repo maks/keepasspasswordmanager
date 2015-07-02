@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.lukaszgajos.keepassmob.SetMasterKeyActivity">
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_use_password"
+        android:id="@+id/password_chk"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_use_keyfile"
+        android:id="@+id/key_checkbox"
+        android:layout_below="@+id/password_chk"
+        android:layout_alignParentLeft="true" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/ColorPrimaryDark"
+        android:layout_below="@+id/key_checkbox"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/view"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/pwd1"
+        android:layout_below="@+id/view"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/view"
+        android:hint="@string/label_new_password" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/pwd2"
+        android:layout_below="@+id/pwd1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/pwd1"
+        android:hint="@string/label_repeat_password" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/keyfile"
+        android:layout_below="@+id/pwd2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:hint="@string/label_choose_key_file"
+        android:visibility="gone" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_save_master_key"
+        android:id="@+id/save_btn"
+        android:layout_below="@+id/keyfile"
+        android:layout_alignParentRight="true"
+        style="@style/PrimaryButton" />
+
+</RelativeLayout>

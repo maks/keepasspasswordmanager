@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="btn" type="color">#2196F3</item>
+
+    <color name="ColorPrimary">#3F51B5</color>
+    <color name="ColorPrimaryDark">#1A237E</color>
+    <color name="ColorPrimary50">#E8EAF6</color>
+    <color name="EnterBtnColor">#80CBC4</color>
+    <color name="KeyboardBackgroundColor">#ECEFF1</color>
+    <color name="colorAccent">#E91E63</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#1A237E</color>
+    <color name="headerText">#777</color>
+
+
+
+
+</resources>

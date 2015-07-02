@@ -1,0 +1,139 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".LoginActivity"
+    >
+
+    <Button style="@style/PrimaryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_open_database"
+        android:id="@+id/open_db_btn"
+
+        android:layout_below="@+id/linearLayout3"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout3"
+        android:weightSum="1">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/key_file_input"
+            android:layout_below="@+id/password_input"
+            android:layout_alignLeft="@+id/password_input"
+            android:layout_alignStart="@+id/password_input"
+            android:layout_alignRight="@+id/password_input"
+            android:layout_alignEnd="@+id/password_input"
+            android:hint="@string/db_keyfile_label"
+            android:singleLine="true"
+            android:layout_weight="1.00"
+            android:clickable="true"
+            android:inputType="none"
+            android:focusable="false"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/clear_keyfile_btn"
+            android:layout_weight="1.00"
+            android:background="@null"
+            android:src="@drawable/ic_close_grey_900_24dp"
+            android:visibility="invisible"
+            android:padding="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout2"
+        android:weightSum="1">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/password_input"
+            android:layout_below="@+id/db_file_path_input"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/db_password_label"
+            android:layout_weight="1.01" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/clear_pwd_btn"
+            android:background="@null"
+            android:src="@drawable/ic_close_grey_900_24dp"
+            android:visibility="invisible"
+            android:padding="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/imageView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/db_file_path_input"
+            android:layout_centerVertical="true"
+            android:elegantTextHeight="false"
+            android:hint="@string/db_file_path_label"
+            android:layout_alignLeft="@+id/password_input"
+            android:layout_alignStart="@+id/password_input"
+            android:layout_alignRight="@+id/password_input"
+            android:layout_alignEnd="@+id/password_input"
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:editable="false"
+            android:clickable="true"
+            android:focusable="false" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/clear_db_btn"
+            android:background="@null"
+            android:src="@drawable/ic_close_grey_900_24dp"
+            android:visibility="invisible"
+            android:padding="5dp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:id="@+id/imageView4"
+        android:src="@mipmap/ic_launcher"
+
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp" />
+
+</RelativeLayout>

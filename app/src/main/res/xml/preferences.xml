@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="General settings">
+        <ListPreference
+            android:key="autolock_timeout"
+            android:title="@string/preferences_autolock_timeout"
+            android:defaultValue="600"
+
+            android:entries="@array/autolock_labels"
+            android:entryValues="@array/autolock_values"/>
+        <SwitchPreference
+            android:key="show_username"
+            android:title="@string/preferences_show_username"
+            android:defaultValue="false"/>
+        <SwitchPreference
+            android:key="use_clipboard"
+            android:title="@string/preferences_copy_password_to_clipboard"
+            android:defaultValue="true"/>
+        <!--<SwitchPreference-->
+            <!--android:key="save_keyfile_location"-->
+            <!--android:title="@string/preferences_save_keyfile_location"-->
+            <!--android:defaultValue="false"/>-->
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/preferences_search_category">
+        <SwitchPreference
+            android:key="search_username"
+            android:title="@string/preferences_search_in_username"
+            android:defaultValue="false"/>
+        <SwitchPreference
+            android:key="search_url"
+            android:title="@string/preferences_search_in_url"
+            android:defaultValue="false"/>
+        <SwitchPreference
+            android:key="search_notes"
+            android:title="@string/preferences_search_in_notes"
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="@string/preferences_password_generator">
+            <SwitchPreference
+                android:key="use_lower_charset"
+                android:title="@string/label_lower_letters"
+                android:defaultValue="true"/>
+            <SwitchPreference
+                android:key="use_upper_charset"
+                android:title="@string/label_upper_letters"
+                android:defaultValue="true"/>
+            <SwitchPreference
+                android:key="use_numbers_charset"
+                android:title="@string/label_numbers"
+                android:defaultValue="true"/>
+            <SwitchPreference
+                android:key="use_special_charset"
+                android:title="@string/label_special"
+                android:defaultValue="false"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

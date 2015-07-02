@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight=".3"
+    android:padding="10dp">
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_app_btn"
+        android:src="@mipmap/ic_launcher"
+        android:cropToPadding="false"
+        android:padding="8dp"
+        android:background="@null"
+        android:layout_centerHorizontal="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hide_kybrd_btn"
+        android:background="@null"
+        android:src="@drawable/ic_keyboard_hide_grey_900_24dp"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lock_db_btn"
+        android:background="@null"
+        android:src="@drawable/ic_lock_grey_900_24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+
+</RelativeLayout>

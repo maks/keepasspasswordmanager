@@ -1,0 +1,48 @@
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+
+        <item name="colorPrimary">@color/ColorPrimary</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+        <item name="colorButtonNormal">@color/ColorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:textColorPrimary">#E8EAF6</item>-->
+        <!--<item name="colorAccent">#F44336</item>-->
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <!--<item name="android:windowContentOverlay">@null</item>-->
+    </style>
+
+    <style name="PrimaryButton">
+        <item name="android:background">@drawable/primary_button</item>
+        <item name="android:textColor">@color/ColorPrimary50</item>
+    </style>
+
+    <style name="PasteButton">
+        <item name="android:background">@drawable/primary_button</item>
+        <item name="android:textColor">@color/ColorPrimary50</item>
+        <item name="android:layout_margin">7dp</item>
+    </style>
+
+    <style name="CategoriesDrawer">
+        <item name="android:background">#eee</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">0dp</item>
+        <!--<item name="android:color">#eee</item>-->
+    </style>
+
+    <style name="HeaderText">
+        <item name="android:textColor">@color/headerText</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+
+
+</resources>
