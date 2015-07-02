@@ -43,13 +43,6 @@ public class KeyboardGroupAdapter extends ArrayAdapter<PwGroup> {
 
         TextView label = (TextView) rowView.findViewById(R.id.group_name_label);
         PwGroup grp = values[position];
-//        Button btn = (Button) rowView.findViewById(R.id.button2);
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(parent.getContext(), "BTN KLICKED", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         int level = 0;
         PwGroup parentGroup = grp.getParent();

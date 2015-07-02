@@ -38,19 +38,12 @@ public class FileBrowserActivity extends AppCompatActivity {
 
         fileList = (ListView) findViewById(R.id.file_list);
         currentPath = (TextView) findViewById(R.id.current_path);
-
-//        mBackButton = (MenuItem)findViewById(R.id.action_back);
-
         getFileList(startPath);
-
-//        toolbar = (Toolbar) findViewById(R.id.tool_bar); // Attaching the layout to the toolbar object
-//        setSupportActionBar(toolbar);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_file_browser, menu);
         mBackButton = menu.findItem(R.id.action_back);
         return true;
@@ -58,12 +51,8 @@ public class FileBrowserActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_back) {
             String parentPath = currentFile.getParentFile().getAbsolutePath();
             getFileList(parentPath);
@@ -94,24 +83,6 @@ public class FileBrowserActivity extends AppCompatActivity {
         currentFile = new File(path);
         File fileTab[] = currentFile.listFiles();
         Arrays.sort(fileTab);
-
-//        List<File> toSort = Arrays.asList(tmp);
-//        Collections.sort(toSort, new Comparator<File>() {
-//            @Override
-//            public int compare(File lhs, File rhs) {
-//                if (lhs.isDirectory() && rhs.isFile()) return 2;
-//                if (lhs.isFile() && rhs.isDirectory()) return 1;
-//
-//                if (lhs.isFile() && rhs.isFile()) return lhs.getName().compareTo(rhs.getName());
-//                if (lhs.isDirectory() && rhs.isDirectory()) return lhs.getName().compareTo(rhs.getName());
-//
-//                return 0;
-//
-//            }
-//        });
-//        File fileTab[] = new File[toSort.size()];
-//        toSort.toArray(fileTab);
-
 
         FileBrowserAdapter adapter = new FileBrowserAdapter(this, fileTab);
         fileList.setAdapter(adapter);

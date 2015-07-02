@@ -18,12 +18,6 @@ import com.lukaszgajos.keepassmob.core.PasswordDatabase;
 
 import java.io.File;
 
-//import com.lukaszgajos.keepassmob.core.Loader;
-
-
-/**
- * Created by pedros on 01.06.15.
- */
 public class PasswdKeyboard extends InputMethodService implements KeyboardView.OnKeyboardActionListener {
 
     private KeyboardView kv;
@@ -52,46 +46,7 @@ public class PasswdKeyboard extends InputMethodService implements KeyboardView.O
         mSession = new KeepSession(mPref, mAndroidId);
 
 
-
-
-//        getWindow().getWindow().getAttributes().token;
-//
-//
-//        InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-//        im.getCurrentInputMethodSubtype();
-//        im.setInputMethodAndSubtype();
-//        InputMethodSubtype s = im.getCurrentInputMethodSubtype();
-//        im.setCurrentInputMethodSubtype(s);
-
-//        List<InputMethodInfo> m = im.getEnabledInputMethodList();
-//        List<InputMethodInfo> m2 = im.getInputMethodList();
-
-//        im.setCurrentInputMethodSubtype();
-//
-//        im.showInputMethodPicker();
-
         return keyboardView;
-
-
-//        Button btn = (Button) v.findViewById(R.id.button2);
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                InputConnection ic = getCurrentInputConnection();
-//                ic.commitText("BUTTON",1);
-//
-//
-//
-//            }
-//        });
-
-//        kv = (KeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null);
-//        keyboard = new Keyboard(this, R.xml.qwerty);
-//        kv.setKeyboard(keyboard);
-//        kv.setOnKeyboardActionListener(this);
-
-//        return kv;
-
     }
 
     public KeepSession getKeepSession(){
@@ -106,7 +61,6 @@ public class PasswdKeyboard extends InputMethodService implements KeyboardView.O
             return;
         }
 
-//        mSession = new KeepSession(mPref, mAndroidId);
         if (!mSession.isActive()){
             showDbLocked();
             return;
@@ -116,23 +70,7 @@ public class PasswdKeyboard extends InputMethodService implements KeyboardView.O
 
         String password = mSession.getPassword();
         File keyFile = mSession.getKey();
-//        Loader l = new Loader(databaseFile);
-//        if (password != null && password instanceof String){
-//            l.setPassword(password);
-//        }
-//        if (keyFile != null && keyFile instanceof File){
-//            l.setKeyFile(keyFile);
-//        }
 
-//        PasswordDatabase.LoadDatabase(l);
-
-
-//        File dbPath = session.getDatabase();
-//        String pwd = session.getPassword();
-//        File keyPath = session.getKey();
-//        if (dbPath == null || !dbPath.exists()){
-//            return;
-//        }
         if (databaseFile == null || !databaseFile.exists()){
             showDbLocked();
             return;

@@ -77,10 +77,6 @@
             android:label="@string/action_settings" >
         </activity>
         <activity
-            android:name=".ClipboardActivity"
-            android:label="@string/title_activity_clipboard" >
-        </activity>
-        <activity
             android:name=".SetMasterKeyActivity"
             android:label="@string/title_activity_set_master_key" >
         </activity>

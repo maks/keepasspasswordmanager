@@ -85,9 +85,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
 
         checkIfSessionActive();
-
-//        InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-//        im.showInputMethodPicker();
     }
 
     @Override
@@ -115,19 +112,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -167,7 +159,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 input.setText(result);
             }
             if (resultCode == RESULT_CANCELED) {
-                //Write your code if there's no result
             }
         }
     }
@@ -196,7 +187,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-//        Loader loader = null;
         File dbFilename = new File(filename);
         File keyFilename = null;
         if (keyfile.length() > 0){

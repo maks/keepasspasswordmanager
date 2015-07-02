@@ -34,11 +34,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-//import android.support.v7.app.ActionBar;
-//import com.lukaszgajos.keepassmob.core.PasswordEntry;
-//import com.lukaszgajos.keepassmob.core.PasswordGroup;
-
-
 public class MainActivity extends AppCompatActivity {
 
 //    private Toolbar mToolbar;
@@ -68,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         if (!PasswordDatabase.isLoadedDb()){
             finish();
         }
-//        mPref = getSharedPreferences(getString(R.string.preferences_login_activity_file), Context.MODE_PRIVATE);
         mPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         mCategoryList = (ListView) findViewById(R.id.category_list);
@@ -76,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         mSearchQ = (TextView) findViewById(R.id.search_q);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-//        mToolbar = getSupportActionBar();
         mToolbar = getSupportActionBar();
         mToolbar.setHomeButtonEnabled(true);
         mToolbar.setDisplayHomeAsUpEnabled(true);
@@ -85,16 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         mToolbar.setHomeAsUpIndicator(R.drawable.ic_menu_indigo_50_24dp);
 
-
-
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                R.string.open,
-                R.string.close
-//                "OPEN"  /* "open drawer" description */
-//                "CLOSE"  /* "close drawer" description */
-        ) {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open,R.string.close){
 
             public void onDrawerClosed(View view) {
                 invalidateOptionsMenu();
@@ -189,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         mSearchBtn = menu.findItem(R.id.action_search);
         return true;
@@ -197,12 +180,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_lock) {
             PasswordDatabase.close();
 
@@ -228,7 +207,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void updatePasswordListForGroup(){
 
-//        setTitle();
         mToolbar.setSubtitle(mCurrentGroup.getName());
 
         boolean searchInUser = mPref.getBoolean("search_username", false);

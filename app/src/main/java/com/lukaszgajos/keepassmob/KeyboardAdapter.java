@@ -27,13 +27,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-//import com.lukaszgajos.keepassmob.core.PasswordEntry;
-//import com.lukaszgajos.keepassmob.core.PasswordGroup;
-
-
-/**
- * Created by pedros on 05.06.15.
- */
 public class KeyboardAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
     private Context mContext;
@@ -62,7 +55,6 @@ public class KeyboardAdapter extends PagerAdapter implements ViewPager.OnPageCha
 
         inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        mPager = (ViewPager) container.findViewById(R.id.viewpager);
     }
 
     public boolean isGroupSet(){
@@ -107,13 +99,11 @@ public class KeyboardAdapter extends PagerAdapter implements ViewPager.OnPageCha
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        // Remove viewpager_item.xml from ViewPager
         ((ViewPager) container).removeView((LinearLayout) object);
     }
 
     private View getStep1Layout(final ViewGroup container){
         final View res = inflater.inflate(R.layout.keyboard_step1, container, false);
-//        return res;
 
         ImageButton hideBtn = (ImageButton) res.findViewById(R.id.hide_kybrd_btn);
         ImageButton startAppBtn = (ImageButton) res.findViewById(R.id.start_app_btn);
@@ -123,20 +113,8 @@ public class KeyboardAdapter extends PagerAdapter implements ViewPager.OnPageCha
         lockDbBtn.setOnClickListener(this);
 
         groupList = (ListView)res.findViewById(R.id.category_list);
-//        groupList.setItemsCanFocus(true);
-//        groupList.requestFocus();
-
 
         refreshGroupList();
-//        groupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                mCurrentGroup = mCurrentGroupList[position];
-//
-//                mPager.setCurrentItem(1);
-//            }
-//        });
-
 
         return res;
     }
@@ -146,13 +124,6 @@ public class KeyboardAdapter extends PagerAdapter implements ViewPager.OnPageCha
 
         entryList = (ListView) res.findViewById(R.id.pwd_entry_list);
         refreshEntriesList();
-//        entryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                mCurrentEntry = mCurrentEntryList[position];
-//                mPager.setCurrentItem(2);
-//            }
-//        });
 
         ImageButton hideBtn = (ImageButton) res.findViewById(R.id.hide_kybrd_btn);
         ImageButton startAppBtn = (ImageButton) res.findViewById(R.id.start_app_btn);
@@ -183,7 +154,6 @@ public class KeyboardAdapter extends PagerAdapter implements ViewPager.OnPageCha
                 mPager.setCurrentItem(1);
             }
         });
-//        adapter.setOnClick
 
         groupList.setAdapter(adapter);
 
@@ -345,7 +315,6 @@ public class KeyboardAdapter extends PagerAdapter implements ViewPager.OnPageCha
         } else if (R.id.start_app_btn == v.getId()){
             Intent openDbIntent = new Intent();
             openDbIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            openDbIntent.putExtra("finish_after_open", true);
 
             openDbIntent.setClassName(mContext.getPackageName(), MainActivity.class.getName());
             mContext.startActivity(openDbIntent);

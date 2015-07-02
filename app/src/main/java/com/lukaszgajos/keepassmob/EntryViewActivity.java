@@ -74,10 +74,6 @@ public class EntryViewActivity extends AppCompatActivity implements View.OnClick
             finish();
         }
 
-
-//        mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-//        setSupportActionBar(mToolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar = getSupportActionBar();
         mToolbar.setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(mEntry.getTitle());
@@ -216,29 +212,16 @@ public class EntryViewActivity extends AppCompatActivity implements View.OnClick
         registerReceiver(new ClipboardReceiver(mEntry), filter);
     }
 
-//    @Override
-//    public void onPause(){
-//        super.onPause();
-//
-//        notificationManager.cancel(0);
-//        notificationManager.cancel(1);
-//    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_entry_view, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete) {
             showConfirmDeleteDialog();
             return true;

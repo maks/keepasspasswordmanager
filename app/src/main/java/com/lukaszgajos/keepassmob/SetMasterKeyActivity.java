@@ -52,16 +52,12 @@ public class SetMasterKeyActivity extends ActionBarActivity implements View.OnCl
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_set_master_key, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         if (id == android.R.id.home){
@@ -81,7 +77,6 @@ public class SetMasterKeyActivity extends ActionBarActivity implements View.OnCl
                 mKeyfile.setText(result);
             }
             if (resultCode == RESULT_CANCELED) {
-                //Write your code if there's no result
             }
         }
     }

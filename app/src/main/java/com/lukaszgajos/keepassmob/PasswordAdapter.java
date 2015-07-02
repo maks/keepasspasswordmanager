@@ -8,12 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.keepassdroid.database.PwEntry;
-//import com.lukaszgajos.keepassmob.core.PasswordEntry;
 
-
-/**
- * Created by pedros on 04.06.15.
- */
 public class PasswordAdapter extends ArrayAdapter<PwEntry> {
     private final Context context;
     private final PwEntry[] values;
@@ -64,8 +59,6 @@ public class PasswordAdapter extends ArrayAdapter<PwEntry> {
         }
 
         label.setText(entry.getTitle());
-//        username.setText(entry.getUsername());
-
 
         return rowView;
     }

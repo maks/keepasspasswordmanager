@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import java.io.File;
 
-/**
- * Created by pedros on 02.06.15.
- */
 public class FileBrowserAdapter extends ArrayAdapter<File> {
 
     private final Context context;

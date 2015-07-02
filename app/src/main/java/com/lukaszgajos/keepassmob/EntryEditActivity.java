@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +31,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class EntryEditActivity extends ActionBarActivity implements View.OnClickListener {
+public class EntryEditActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String mEntryUuid;
     private PwGroup mEntryGroup;
@@ -45,22 +46,15 @@ public class EntryEditActivity extends ActionBarActivity implements View.OnClick
     private EditText mUrl;
     private EditText mNote;
 
-//    private Button mSaveBtn;
-//    private Button mCancelBtn;
     private ImageButton mPwdGeneratorBtn;
     private Spinner mGroupSpinner;
 
-//    private Toolbar mToolbar;
     private ActionBar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry_edit);
-
-//        mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-//        setSupportActionBar(mToolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mToolbar = getSupportActionBar();
         mToolbar.setDisplayHomeAsUpEnabled(true);
@@ -83,13 +77,6 @@ public class EntryEditActivity extends ActionBarActivity implements View.OnClick
 
             }
         });
-//        mGroupSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                mEntryGroup = (PwGroup) mGroupSpinner.getSelectedItem();
-//            }
-//        });
-
 
         mTitle = (EditText) findViewById(R.id.value_title);
         mUsername = (EditText) findViewById(R.id.value_username);
@@ -97,12 +84,7 @@ public class EntryEditActivity extends ActionBarActivity implements View.OnClick
         mUrl = (EditText) findViewById(R.id.value_url);
         mNote = (EditText) findViewById(R.id.value_note);
 
-//        mSaveBtn = (Button) findViewById(R.id.save_btn);
-//        mCancelBtn = (Button) findViewById(R.id.cancel_btn);
         mPwdGeneratorBtn = (ImageButton) findViewById(R.id.generate_pwd_btn);
-
-//        mSaveBtn.setOnClickListener(this);
-//        mCancelBtn.setOnClickListener(this);
         mPwdGeneratorBtn.setOnClickListener(this);
 
         mEntryUuid = getIntent().getExtras().getString("entry_uuid", "");
@@ -138,16 +120,12 @@ public class EntryEditActivity extends ActionBarActivity implements View.OnClick
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_entry_edit, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         if (id == android.R.id.home){
@@ -197,22 +175,12 @@ public class EntryEditActivity extends ActionBarActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-//        if (v.getId() == mCancelBtn.getId()){
-//            finish();
-//        }
-//
-//        if (v.getId() == mSaveBtn.getId()){
-//
-//
-//        }
-
         if (v.getId() == mPwdGeneratorBtn.getId()){
             showPasswordGeneratePopup(this);
         }
     }
 
     private String generatePassword(int length, boolean upper, boolean lower, boolean numbers, boolean special){
-//        string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
         String lowerCharset = "abcdefghijklmnopqrstuvwxyz";
         String upperCharset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

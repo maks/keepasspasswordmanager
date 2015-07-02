@@ -8,12 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.keepassdroid.database.PwGroup;
-//import com.lukaszgajos.keepassmob.core.PasswordGroup;
 
-
-/**
- * Created by pedros on 04.06.15.
- */
 public class GroupAdapter extends ArrayAdapter<PwGroup> {
     private final Context context;
     private final PwGroup[] values;
