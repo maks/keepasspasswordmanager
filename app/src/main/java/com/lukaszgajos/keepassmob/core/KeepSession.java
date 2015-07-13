@@ -1,6 +1,7 @@
 package com.lukaszgajos.keepassmob.core;
 
 import android.content.SharedPreferences;
+import android.net.Uri;
 
 import java.io.File;
 
@@ -64,8 +65,8 @@ public class KeepSession {
         return true;
     }
 
-    public void storeDatabase(File f){
-        String path = f.getAbsolutePath();
+    public void storeDatabase(String path){
+//        String path = f.getAbsolutePath();
         path = crypter.encrypt(path);
 
         SharedPreferences.Editor editor = pref.edit();
@@ -82,8 +83,8 @@ public class KeepSession {
         editor.commit();
     }
 
-    public void storeKey(File f){
-        String path = f.getAbsolutePath();
+    public void storeKey(String path){
+//        String path = f.getAbsolutePath();
         path = crypter.encrypt(path);
 
         SharedPreferences.Editor editor = pref.edit();
@@ -91,12 +92,13 @@ public class KeepSession {
         editor.commit();
     }
 
-    public File getDatabase(){
+    public Uri getDatabase(){
         String filePath = pref.getString(DB_KEY, "");
+
         if (filePath.length() > 0){
             filePath = crypter.decrypt(filePath);
 
-            return new File(filePath);
+            return Uri.parse(filePath);
         }
         return null;
     }
@@ -110,12 +112,12 @@ public class KeepSession {
         return null;
     }
 
-    public File getKey(){
+    public Uri getKey(){
         String keyFile = pref.getString(KEY_KEY, "");
         if (keyFile.length() > 0){
             keyFile = crypter.decrypt(keyFile);
 
-            return new File(keyFile);
+            return Uri.parse(keyFile);
         }
         return null;
     }

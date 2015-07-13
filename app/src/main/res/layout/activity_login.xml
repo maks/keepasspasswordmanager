@@ -14,7 +14,7 @@
         android:text="@string/btn_open_database"
         android:id="@+id/open_db_btn"
 
-        android:layout_below="@+id/linearLayout3"
+        android:layout_below="@+id/linearLayout2"
         android:layout_centerHorizontal="true" />
 
     <LinearLayout
@@ -22,14 +22,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_below="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout2"
+        android:weightSum="1">
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/password_input"
+            android:layout_below="@+id/db_file_path_input"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/db_password_label"
+            android:layout_weight="1.01" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/clear_pwd_btn"
+            android:background="@null"
+            android:src="@drawable/ic_close_grey_900_24dp"
+            android:visibility="invisible"
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:paddingRight="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout3"
         android:weightSum="1">
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/key_file_input"
             android:layout_below="@+id/password_input"
@@ -52,41 +86,23 @@
             android:background="@null"
             android:src="@drawable/ic_close_grey_900_24dp"
             android:visibility="invisible"
-            android:padding="5dp" />
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:paddingRight="5dp" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/key_source_list"
+            android:layout_below="@+id/imageView4"
+            android:layout_toLeftOf="@+id/open_db_btn"
+            android:layout_marginRight="5dp"
+            android:focusable="false"
+            android:visibility="visible" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        android:layout_below="@+id/linearLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout2"
-        android:weightSum="1">
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/password_input"
-            android:layout_below="@+id/db_file_path_input"
-            android:layout_centerHorizontal="true"
-            android:hint="@string/db_password_label"
-            android:layout_weight="1.01" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/clear_pwd_btn"
-            android:background="@null"
-            android:src="@drawable/ic_close_grey_900_24dp"
-            android:visibility="invisible"
-            android:padding="5dp" />
-    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -99,7 +115,7 @@
         android:weightSum="1">
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/db_file_path_input"
             android:layout_centerVertical="true"
@@ -109,11 +125,11 @@
             android:layout_alignStart="@+id/password_input"
             android:layout_alignRight="@+id/password_input"
             android:layout_alignEnd="@+id/password_input"
+
             android:singleLine="true"
-            android:layout_weight="1"
-            android:inputType="none"
-            android:editable="false"
+            android:layout_weight="1.00"
             android:clickable="true"
+            android:inputType="none"
             android:focusable="false" />
 
         <ImageButton
@@ -123,7 +139,19 @@
             android:background="@null"
             android:src="@drawable/ic_close_grey_900_24dp"
             android:visibility="invisible"
-            android:padding="5dp" />
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:paddingRight="5dp" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/file_source_list"
+            android:layout_below="@+id/imageView4"
+            android:layout_toLeftOf="@+id/open_db_btn"
+            android:layout_marginRight="5dp"
+            android:focusable="false"
+            android:visibility="visible" />
 
     </LinearLayout>
 

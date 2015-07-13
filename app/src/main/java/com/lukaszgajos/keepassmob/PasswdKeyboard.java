@@ -5,18 +5,22 @@ import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.lukaszgajos.keepassmob.core.KeepSession;
 import com.lukaszgajos.keepassmob.core.PasswordDatabase;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class PasswdKeyboard extends InputMethodService implements KeyboardView.OnKeyboardActionListener {
 
@@ -66,16 +70,23 @@ public class PasswdKeyboard extends InputMethodService implements KeyboardView.O
             return;
         }
 
-        File databaseFile = mSession.getDatabase();
+        Uri dbUri = mSession.getDatabase();
 
         String password = mSession.getPassword();
-        File keyFile = mSession.getKey();
+        Uri keyUri = mSession.getKey();
 
-        if (databaseFile == null || !databaseFile.exists()){
+        if (dbUri == null){
             showDbLocked();
             return;
         }
-        PasswordDatabase.LoadDatabase(databaseFile, password, keyFile);
+        try {
+            InputStream ins = getContentResolver().openInputStream(dbUri);
+            PasswordDatabase.LoadDatabase(ins, password, keyUri == null ? "" : keyUri.getPath());
+            PasswordDatabase.setSession(mSession);
+        } catch (FileNotFoundException e) {
+            showDbLocked();
+            return;
+        }
         if (!PasswordDatabase.isCredentialsCorrect()){
             mSession.clear();
             showDbLocked();
@@ -90,7 +101,7 @@ public class PasswdKeyboard extends InputMethodService implements KeyboardView.O
         else if (mKeyboardAdapter.isGroupSet()){
             mPager.setCurrentItem(1);
         }
-        
+
 
         showDbUnlocked();
     }
@@ -114,6 +125,8 @@ public class PasswdKeyboard extends InputMethodService implements KeyboardView.O
                 startActivity(openDbIntent);
             }
         });
+        ImageButton switchKybrd = (ImageButton) locked.findViewById(R.id.hide_kybrd_btn);
+        switchKybrd.setOnClickListener(mKeyboardAdapter);
     }
 
     public void showDbUnlocked(){

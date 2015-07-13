@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -19,12 +20,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.keepassdroid.database.PwEntry;
 import com.lukaszgajos.keepassmob.core.ClipboardReceiver;
 import com.lukaszgajos.keepassmob.core.KeepSession;
 import com.lukaszgajos.keepassmob.core.PasswordDatabase;
 
+import java.io.FileNotFoundException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -99,7 +103,11 @@ public class EntryViewActivity extends AppCompatActivity implements View.OnClick
 
         mToggleUsername.setOnClickListener(this);
         mTogglePassword.setOnClickListener(this);
-        mEditEntry.setOnClickListener(this);
+        if (PasswordDatabase.isIsReadOnly()){
+            mEditEntry.setVisibility(View.GONE);
+        } else {
+            mEditEntry.setOnClickListener(this);
+        }
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
@@ -215,6 +223,12 @@ public class EntryViewActivity extends AppCompatActivity implements View.OnClick
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_entry_view, menu);
+
+        MenuItem del = menu.findItem(R.id.action_delete);
+        if (PasswordDatabase.isIsReadOnly()){
+            del.setVisible(false);
+        }
+
         return true;
     }
 
@@ -275,7 +289,16 @@ public class EntryViewActivity extends AppCompatActivity implements View.OnClick
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         PasswordDatabase.deleteEntry(mEntry);
-                        PasswordDatabase.SaveDatabase();
+
+                        Uri outputUri = PasswordDatabase.getSession().getDatabase();
+                        OutputStream os = null;
+                        try {
+                            os = getContentResolver().openOutputStream(outputUri);
+                            PasswordDatabase.SaveDatabase(os);
+                        } catch (FileNotFoundException e) {
+                            Toast.makeText(getApplicationContext(), getString(R.string.error_could_not_save_database), Toast.LENGTH_LONG).show();
+                        }
+
                         finish();
                     }
                 })

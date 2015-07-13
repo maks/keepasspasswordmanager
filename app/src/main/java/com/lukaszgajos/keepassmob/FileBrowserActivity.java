@@ -19,7 +19,7 @@ import java.util.Arrays;
 public class FileBrowserActivity extends AppCompatActivity {
 
     String startPath;
-    int returnInputId;
+//    int returnInputId;
 
     ListView fileList;
     TextView currentPath;
@@ -34,7 +34,7 @@ public class FileBrowserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_file_browser);
 
         startPath = getIntent().getExtras().getString("start_path");
-        returnInputId = getIntent().getExtras().getInt("back_input_id");
+//        returnInputId = getIntent().getExtras().getInt("back_input_id");
 
         fileList = (ListView) findViewById(R.id.file_list);
         currentPath = (TextView) findViewById(R.id.current_path);
@@ -102,7 +102,6 @@ public class FileBrowserActivity extends AppCompatActivity {
     private void returnPickedFile(String path){
         Intent resultIntent = new Intent();
         resultIntent.putExtra("result_path", path);
-        resultIntent.putExtra("back_input_id", returnInputId);
 
         setResult(RESULT_OK, resultIntent);
         finish();

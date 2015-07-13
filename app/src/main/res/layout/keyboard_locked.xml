@@ -33,4 +33,18 @@
         android:src="@mipmap/ic_launcher"
         android:cropToPadding="false"
         android:padding="8dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hide_kybrd_btn"
+        android:background="@null"
+        android:src="@drawable/ic_keyboard_hide_grey_900_24dp"
+
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_below="@+id/button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="7dp" />
 </RelativeLayout>

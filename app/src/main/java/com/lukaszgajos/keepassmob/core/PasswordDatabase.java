@@ -11,6 +11,12 @@ import com.keepassdroid.database.PwGroupV4;
 import com.lukaszgajos.keepassdroidlibrary.KPDatabase;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOError;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 /**
@@ -21,33 +27,59 @@ public class PasswordDatabase {
 //    private static Loader database;
     private static KPDatabase db;
     private static boolean loadedDb = false;
+    private static boolean isReadOnly = false;
 
-    private static File databaseFile;
+    private static KeepSession session;
 
+    public static void setReadOnly(boolean value){
+        isReadOnly = value;
+    }
 
-    public static void LoadDatabase(File dbFile, String password, File keyFile){
-//        db = new KPDb(dbFile, password, keyFile);
-        String dbFilename = dbFile.getAbsolutePath();
+    public static boolean isIsReadOnly(){
+        return isReadOnly;
+    }
+
+    public static void setSession(KeepSession s){
+        if (session != null){
+            return;
+        }
+
+        session = s;
+    }
+
+    public static KeepSession getSession(){
+        return  session;
+    }
+
+    public static void LoadDatabase(InputStream dbFile, String password, String keyFile){
         String pwd = password == null ? "" : password;
-        String key = keyFile == null ? "" : keyFile.getAbsolutePath();
+        String key = keyFile == null ? "" : keyFile;
 
-
-        db = new KPDatabase(dbFilename, pwd, key);
+        db = new KPDatabase(dbFile, pwd, key);
         loadedDb = db.isCredencialCorrect();
-        databaseFile = dbFile;
     }
 
-    public static boolean SaveDatabase(){
-        return SaveDatabase(databaseFile.getAbsolutePath());
+    public static boolean SaveDatabase(OutputStream fos){
+        if (isIsReadOnly()){
+            return false;
+        }
+        return db.saveDatabase(fos);
     }
+
+//    public static boolean SaveDatabase(){
+//        if (databaseFile == null){
+//            return false;
+//        }
+//        return SaveDatabase(databaseFile.getAbsolutePath());
+//    }
 
     public static boolean isLoadedDb(){
         return db != null;
     }
 
-    public static boolean SaveDatabase(String filename){
-        return db.saveDatabase(filename);
-    }
+//    public static boolean SaveDatabase(String filename){
+//        return db.saveDatabase(filename);
+//    }
 
     public static PwDatabase getDatabase(){
         return db.getDbInstance();
@@ -73,6 +105,7 @@ public class PasswordDatabase {
 
     public static void close(){
         db = null;
+        session.clear();
     }
 
     public static List<PwGroup> getGroups(){

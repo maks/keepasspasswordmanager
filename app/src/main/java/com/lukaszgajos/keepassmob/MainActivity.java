@@ -4,12 +4,16 @@ package com.lukaszgajos.keepassmob;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -123,14 +127,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mAddEntryBtn = (ImageButton) findViewById(R.id.add_entry_btn);
-        mAddEntryBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), EntryEditActivity.class);
-                i.putExtra("group_hashcode", mCurrentGroup.getId().hashCode());
-                startActivity(i);
-            }
-        });
+        if (PasswordDatabase.isIsReadOnly()){
+            mAddEntryBtn.setVisibility(View.GONE);
+        } else {
+            mAddEntryBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(), EntryEditActivity.class);
+                    i.putExtra("group_hashcode", mCurrentGroup.getId().hashCode());
+                    startActivity(i);
+                }
+            });
+        }
 
         Button settingsBtn = (Button)mDrawerLayout.findViewById(R.id.settings_btn);
         settingsBtn.setOnClickListener(new View.OnClickListener() {
@@ -143,11 +151,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Button changeMasterKeyBtn = (Button)mDrawerLayout.findViewById(R.id.change_master_key_btn);
-        changeMasterKeyBtn.setOnClickListener(new View.OnClickListener() {
+        if (PasswordDatabase.isIsReadOnly()){
+            changeMasterKeyBtn.setVisibility(View.GONE);
+        } else {
+            changeMasterKeyBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(MainActivity.this, SetMasterKeyActivity.class);
+                    startActivity(i);
+
+                    mDrawerLayout.closeDrawers();
+                }
+            });
+        }
+
+        Button openAboutDialog = (Button) mDrawerLayout.findViewById(R.id.show_about_btn);
+        openAboutDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, SetMasterKeyActivity.class);
-                startActivity(i);
+                showAbout();
 
                 mDrawerLayout.closeDrawers();
             }
@@ -158,9 +180,8 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        String androidId = Settings.Secure.getString(getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        KeepSession session = new KeepSession(mPref, androidId);
-        if (!session.isActive()){
+        KeepSession session = PasswordDatabase.getSession();
+        if (session == null || !session.isActive()){
             finish();
             return;
         }
@@ -172,9 +193,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        PasswordDatabase.close();
+
+        super.onBackPressed();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         mSearchBtn = menu.findItem(R.id.action_search);
+
         return true;
     }
 
@@ -183,11 +212,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_lock) {
+            PasswordDatabase.getSession().clear();
             PasswordDatabase.close();
-
-            String androidId = Settings.Secure.getString(getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-            KeepSession session = new KeepSession(mPref, androidId);
-            session.clear();
 
             finish();
         }
@@ -297,5 +323,36 @@ public class MainActivity extends AppCompatActivity {
         public void afterTextChanged(Editable s) {
             updatePasswordListForGroup();
         }
+    }
+
+    protected void showAbout() {
+        View messageView = getLayoutInflater().inflate(R.layout.about_dialog, null, false);
+
+        String version;
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            version = pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            version = "0.1";
+        }
+
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        Button reviewBtn = (Button) messageView.findViewById(R.id.openReviewBtn);
+        reviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.lukaszgajos.keepassmob"));
+                startActivity(browserIntent);
+            }
+        });
+        TextView versionLabel = (TextView) messageView.findViewById(R.id.version_label);
+        versionLabel.setText(version);
+
+        builder.setView(messageView);
+        builder.create();
+        builder.show();
     }
 }

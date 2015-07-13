@@ -1,6 +1,7 @@
 package com.lukaszgajos.keepassmob;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.keepassdroid.database.exception.InvalidKeyFileException;
@@ -17,6 +19,7 @@ import com.lukaszgajos.keepassmob.core.PasswordDatabase;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 
 
 public class SetMasterKeyActivity extends ActionBarActivity implements View.OnClickListener {
@@ -27,6 +30,9 @@ public class SetMasterKeyActivity extends ActionBarActivity implements View.OnCl
     EditText mPassword2;
     EditText mKeyfile;
     Button mSaveBtn;
+    Spinner mKeySource;
+
+    Uri mKeyUri;
 
 
     @Override
@@ -41,11 +47,14 @@ public class SetMasterKeyActivity extends ActionBarActivity implements View.OnCl
         mPassword2 = (EditText) findViewById(R.id.pwd2);
         mKeyfile = (EditText) findViewById(R.id.keyfile);
         mSaveBtn = (Button) findViewById(R.id.save_btn);
+        mKeySource = (Spinner) findViewById(R.id.key_source_list);
 
         mUsePassword.setOnClickListener(this);
         mUseKeyfile.setOnClickListener(this);
         mKeyfile.setOnClickListener(this);
         mSaveBtn.setOnClickListener(this);
+
+        mKeySource.setAdapter(new FileSourceAdapter(getApplicationContext(), FileSourceAdapter.getAvailableSource()));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -72,11 +81,19 @@ public class SetMasterKeyActivity extends ActionBarActivity implements View.OnCl
         if (requestCode == 1) {
             if(resultCode == RESULT_OK){
                 String result = data.getStringExtra("result_path");
-                result = result.replace(Environment.getExternalStorageDirectory().getAbsolutePath() , "");
 
-                mKeyfile.setText(result);
+                File tmpFile = new File(result);
+                mKeyUri = Uri.fromFile(tmpFile);
+                mKeyfile.setText(tmpFile.getName());
             }
             if (resultCode == RESULT_CANCELED) {
+            }
+        }
+        if (requestCode == 2){
+            if (resultCode == RESULT_OK){
+                mKeyUri = data.getData();
+
+                mKeyfile.setText(mKeyUri.getLastPathSegment());
             }
         }
     }
@@ -102,9 +119,11 @@ public class SetMasterKeyActivity extends ActionBarActivity implements View.OnCl
         if (v.getId() == mUseKeyfile.getId()){
             if (mUseKeyfile.isChecked()){
                 mKeyfile.setVisibility(View.VISIBLE);
+                mKeySource.setVisibility(View.VISIBLE);
                 mKeyfile.setText("");
             } else {
                 mKeyfile.setVisibility(View.GONE);
+                mKeySource.setVisibility(View.GONE);
 
                 if (!mUsePassword.isChecked()){
                     mUsePassword.performClick();
@@ -113,9 +132,17 @@ public class SetMasterKeyActivity extends ActionBarActivity implements View.OnCl
         }
 
         if (v.getId() == mKeyfile.getId()){
-            Intent i = new Intent(this, FileBrowserActivity.class);
-            i.putExtra("start_path", Environment.getExternalStorageDirectory().getAbsolutePath());
-            startActivityForResult(i, 1);
+            if ((int)mKeySource.getSelectedItem() == FileSourceAdapter.CLOUD){
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                intent.setDataAndType(Uri.parse("/"), "application/octet-stream");
+                startActivityForResult(Intent.createChooser(intent, getString(R.string.app_name)), 2);
+            } else {
+                Intent i = new Intent(this, FileBrowserActivity.class);
+                i.putExtra("start_path", Environment.getExternalStorageDirectory().getAbsolutePath());
+                startActivityForResult(i, 1);
+            }
         }
 
         if (v.getId() == mSaveBtn.getId()){
@@ -137,7 +164,7 @@ public class SetMasterKeyActivity extends ActionBarActivity implements View.OnCl
                 password = mPassword1.getText().toString();
             }
             if (mUseKeyfile.isChecked()){
-                String tmpPath = Environment.getExternalStorageDirectory().getAbsolutePath() + mKeyfile.getText().toString();
+                String tmpPath = mKeyUri.getPath();
                 File f = new File(tmpPath);
                 if (!f.exists()){
                     Toast.makeText(getApplicationContext(), getString(R.string.error_key_file_not_exists), Toast.LENGTH_SHORT).show();
@@ -149,7 +176,9 @@ public class SetMasterKeyActivity extends ActionBarActivity implements View.OnCl
 
             try {
                 PasswordDatabase.getDatabase().setMasterKey(password, keyfile);
-                PasswordDatabase.SaveDatabase();
+                Uri outputUri = PasswordDatabase.getSession().getDatabase();
+                OutputStream os = getContentResolver().openOutputStream(outputUri);
+                PasswordDatabase.SaveDatabase(os);
             } catch (InvalidKeyFileException e) {
                 Toast.makeText(getApplicationContext(), getString(R.string.error_could_not_save_database), Toast.LENGTH_SHORT).show();
                 return;

@@ -3,6 +3,7 @@ package com.lukaszgajos.keepassmob;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
@@ -26,6 +27,8 @@ import com.keepassdroid.database.PwEntry;
 import com.keepassdroid.database.PwGroup;
 import com.lukaszgajos.keepassmob.core.PasswordDatabase;
 
+import java.io.FileNotFoundException;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -160,14 +163,21 @@ public class EntryEditActivity extends AppCompatActivity implements View.OnClick
             mEntry.setUrl(url, db);
             mEntry.setNotes(notes, db);
 
+            Uri outputUri = PasswordDatabase.getSession().getDatabase();
+            OutputStream os = null;
+            try {
+                os = getContentResolver().openOutputStream(outputUri);
+                if (PasswordDatabase.SaveDatabase(os)) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.entry_saved), Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_could_not_save_database), Toast.LENGTH_LONG).show();
+                }
 
-
-            if (PasswordDatabase.SaveDatabase()){
-                Toast.makeText(getApplicationContext(), getString(R.string.entry_saved), Toast.LENGTH_LONG).show();
-                finish();
-            } else {
+            } catch (FileNotFoundException e) {
                 Toast.makeText(getApplicationContext(), getString(R.string.error_could_not_save_database), Toast.LENGTH_LONG).show();
             }
+
         }
 
         return super.onOptionsItemSelected(item);

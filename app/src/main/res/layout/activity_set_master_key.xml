@@ -1,5 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -62,9 +62,11 @@
         android:id="@+id/keyfile"
         android:layout_below="@+id/pwd2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:hint="@string/label_choose_key_file"
-        android:visibility="gone" />
+        android:visibility="gone"
+
+        android:layout_alignRight="@+id/pwd2"
+        android:layout_alignEnd="@+id/pwd2" />
 
     <Button
         android:layout_width="wrap_content"
@@ -74,5 +76,15 @@
         android:layout_below="@+id/keyfile"
         android:layout_alignParentRight="true"
         style="@style/PrimaryButton" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/key_source_list"
+        android:focusable="false"
+        android:visibility="gone"
+        android:layout_above="@+id/save_btn"
+        android:layout_alignRight="@+id/pwd2"
+        android:layout_alignEnd="@+id/pwd2" />
 
 </RelativeLayout>
