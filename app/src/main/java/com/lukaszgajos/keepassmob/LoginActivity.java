@@ -23,6 +23,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.content.Context;
+import android.view.inputmethod.InputMethodManager;
 
 import com.keepassdroid.database.PwGroup;
 import com.lukaszgajos.keepassmob.core.KeepSession;
@@ -125,6 +127,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String lastDbUri = pref.getString(getString(R.string.preferences_db_filename), "");
         if (lastDbUri.length() > 0){
             setDbUri(Uri.parse(lastDbUri));
+            if(mPassword.requestFocus()) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(mPassword, InputMethodManager.SHOW_IMPLICIT);
+            }
         }
 
 
