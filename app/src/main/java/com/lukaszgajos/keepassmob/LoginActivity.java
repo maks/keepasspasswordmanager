@@ -128,8 +128,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (lastDbUri.length() > 0){
             setDbUri(Uri.parse(lastDbUri));
             if(mPassword.requestFocus()) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(mPassword, InputMethodManager.SHOW_IMPLICIT);
+                mPassword.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(mPassword, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                }, 300);
             }
         }
 
@@ -161,6 +166,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Uri fromFileSystemDb = getIntent().getData();
         if (fromFileSystemDb != null){
             setDbUri(fromFileSystemDb);
+            if(mPassword.requestFocus()) {
+                mPassword.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(mPassword, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                }, 300);
+            }
         } else {
             checkIfSessionActive();
         }
